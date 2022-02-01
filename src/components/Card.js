@@ -1,5 +1,7 @@
-import React from 'react';
-import styled, { keyframes } from 'styled-components';
+/* eslint-disable react-hooks/exhaustive-deps */
+import React, { useEffect, useState } from 'react';
+import styled from 'styled-components';
+import 'components/animation.css';
 
 const Container = styled.div`
   display: flex;
@@ -22,6 +24,10 @@ const Cards = styled.div`
   width: 100%;
   box-shadow: 0px 5px black;
   border-radius: 15px;
+
+  @media screen and (max-width: 37.5em) {
+    border-radius: 5px;
+  }
 `;
 
 const circleSize = 1;
@@ -52,10 +58,11 @@ const StaticCard = styled.div`
 `;
 
 const UpperStaticCard = styled(StaticCard)`
+  background-color: var(--dark-blue-2);
   border-top-left-radius: 15px;
   border-top-right-radius: 15px;
   align-items: flex-end;
-  border-bottom: 0.1px solid black;
+  border-bottom: 0.01px solid black;
 
   &::before {
     bottom: -${circleSize / 2}rem;
@@ -71,13 +78,18 @@ const UpperStaticCard = styled(StaticCard)`
     transform: translateY(50%);
     filter: brightness(0.85);
   }
+
+  @media screen and (max-width: 37.5em) {
+    border-top-left-radius: 5px;
+    border-top-right-radius: 5px;
+  }
 `;
 
 const LowerStaticCard = styled(StaticCard)`
   border-bottom-left-radius: 15px;
   border-bottom-right-radius: 15px;
   align-items: flex-start;
-  /* border-top: 0.1px solid var(--dark-blue-2); */
+  border-top: 0.01px solid black;
 
   &::before {
     top: -${circleSize / 2}rem;
@@ -92,25 +104,10 @@ const LowerStaticCard = styled(StaticCard)`
   span {
     transform: translateY(-50%);
   }
-`;
 
-const fold = keyframes`
-  from {
-    transform: rotateX(0);
-  }
-
-  to {
-    transform: rotateX(-180deg);
-  }
-`;
-
-const unfold = keyframes`
-  from {
-    transform: rotateX(180deg);
-  }
-
-  to {
-    transform: rotateX(0deg);
+  @media screen and (max-width: 37.5em) {
+    border-bottom-left-radius: 5px;
+    border-bottom-right-radius: 5px;
   }
 `;
 
@@ -119,7 +116,6 @@ const FrontFlipCard = styled(UpperStaticCard)`
   position: absolute;
   top: 0;
   transform-origin: bottom;
-  animation: ${fold} 0.6s linear infinite;
 `;
 
 const BackFlipCard = styled(LowerStaticCard)`
@@ -128,28 +124,48 @@ const BackFlipCard = styled(LowerStaticCard)`
   bottom: 0;
   transform-origin: top;
   transform: rotateX(180deg);
-  animation: ${unfold} 0.6s linear infinite;
 `;
 
-const Card = ({ currentNumber, nextNumber }) => {
+const Card = ({ currentNumber, nextNumber, title }) => {
+  const [[current, next], setNumber] = useState([currentNumber, nextNumber]);
+  const [isAnimated, setIsAnimated] = useState(false);
+  const [isFirstRender, setIsFirstRender] = useState(true);
+
+  const toString = num => {
+    return ('0' + num.toString(10)).slice(-2);
+  };
+
+  const onAnimationEnd = () => {
+    setIsAnimated(false);
+    setNumber([currentNumber, nextNumber]);
+  };
+
+  useEffect(() => {
+    if (isFirstRender) {
+      setIsFirstRender(false);
+      return;
+    }
+    setIsAnimated(true);
+  }, [currentNumber, nextNumber]);
+
   return (
     <Container>
       <Cards>
         <UpperStaticCard>
-          <span>{nextNumber}</span>
+          <span>{toString(next)}</span>
         </UpperStaticCard>
         <LowerStaticCard>
-          <span>{currentNumber}</span>
+          <span>{toString(current)}</span>
         </LowerStaticCard>
-        <FrontFlipCard>
-          <span>{currentNumber}</span>
+        <FrontFlipCard className={isAnimated ? 'fold' : ''} onAnimationEnd={onAnimationEnd}>
+          <span>{toString(current)}</span>
         </FrontFlipCard>
-        <BackFlipCard>
-          <span>{nextNumber}</span>
+        <BackFlipCard className={isAnimated ? 'unfold' : ''}>
+          <span>{toString(next)}</span>
         </BackFlipCard>
       </Cards>
 
-      <Title>seconds</Title>
+      <Title>{title}</Title>
     </Container>
   );
 };
