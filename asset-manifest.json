@@ -1,0 +1,18 @@
+{
+  "files": {
+    "main.css": "/launch-countdowm-timer/static/css/main.2263579d.css",
+    "main.js": "/launch-countdowm-timer/static/js/main.8c8dcf91.js",
+    "static/media/bg-stars.svg": "/launch-countdowm-timer/static/media/bg-stars.166881a1c03d6b1239f5dc4250bf85ad.svg",
+    "index.html": "/launch-countdowm-timer/index.html",
+    "static/media/icon-instagram.svg": "/launch-countdowm-timer/static/media/icon-instagram.6682caac7a90c9ea634630a152e66cb3.svg",
+    "static/media/icon-pinterest.svg": "/launch-countdowm-timer/static/media/icon-pinterest.45a8eb6bf528b8a631f2e87ceb09f63a.svg",
+    "static/media/pattern-hills.svg": "/launch-countdowm-timer/static/media/pattern-hills.815d688fd937623063b5c111be9fc999.svg",
+    "static/media/icon-facebook.svg": "/launch-countdowm-timer/static/media/icon-facebook.60fb55ea5c3e289b0022c6a6db577a3d.svg",
+    "main.2263579d.css.map": "/launch-countdowm-timer/static/css/main.2263579d.css.map",
+    "main.8c8dcf91.js.map": "/launch-countdowm-timer/static/js/main.8c8dcf91.js.map"
+  },
+  "entrypoints": [
+    "static/css/main.2263579d.css",
+    "static/js/main.8c8dcf91.js"
+  ]
+}
