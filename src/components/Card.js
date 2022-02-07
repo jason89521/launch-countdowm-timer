@@ -9,6 +9,10 @@ const Container = styled.div`
   gap: 2rem;
   align-items: center;
   width: 14rem;
+
+  @media screen and (max-width: 37.5em) {
+    width: 14rem;
+  }
 `;
 
 const Title = styled.h2`
